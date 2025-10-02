@@ -1,0 +1,47 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 40px;
+    background: linear-gradient(90deg, #00416a, #658c2f); /* Modern gradient */
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    
+    top: 0;
+    z-index: 1000;
+  }
+  
+  /* Left Section */
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+  .company-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  /* Center Section */
+  .nav-center a {
+    color: #ffdd57;
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .nav-center a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Right Section */
+  .nav-right {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  
