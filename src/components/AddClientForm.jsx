@@ -1,116 +1,162 @@
 import React, { useState } from 'react'
 
-export default function AddClientForm({onSave, onDone}){
-  const [name,setName] = useState('')
-  const [phone,setPhone] = useState('')
-  const [email,setEmail] = useState('')
-  const [company,setCompany] = useState('')
-  const [followUpDate,setFollowUpDate] = useState('')
-  const [remarks,setRemarks] = useState('')
+export default function AddClientForm({ onSave, onDone }) {
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+  const [company, setCompany] = useState('')
+  const [followUpDate, setFollowUpDate] = useState('')
+  const [remarks, setRemarks] = useState('')
+  const [attachments, setAttachments] = useState([])
 
-  // function computeFollowDate(days){
-  //   if (!days) return null
-  //   const t = new Date()
-  //   t.setDate(t.getDate() + Number(days))
-  //   return t.toISOString()
-  // }
+  // handle file selection
+  const handleFileChange = (e) => {
+    setAttachments([...e.target.files])
+  }
 
-  function handleSave(){
+  // upload files to backend first
+  async function uploadFiles() {
+    if (attachments.length === 0) return []
+    const formData = new FormData()
+    attachments.forEach(file => formData.append('attachments', file))
+    
+    const res = await fetch('http://localhost:5001/upload', {  // adjust backend URL if needed
+      method: 'POST',
+      body: formData
+    })
+    console.log("res ", res)
+    
+    const data = await res.json()
+    console.log("data ", data)
+    console.log("data.paths ", data.paths)
+    return data.paths || []
+  }
+
+  async function handleSave() {
+    const uploadedFiles = await uploadFiles()
+
     const client = {
-      name, phone, email, company, status:'open',
+      name,
+      phone,
+      email,
+      company,
+      status: 'open',
       interactions: [{
         remarks: remarks,
-        followUpDate: followUpDate
+        followUpDate: followUpDate,
+        attachments: uploadedFiles
       }]
     }
+
     onSave(client)
   }
 
-  function handleDone(){
+  async function handleDone() {
+    const uploadedFiles = await uploadFiles()
+
     const client = {
-      name, phone, email, company, status:'closed',
+      name,
+      phone,
+      email,
+      company,
+      status: 'closed',
       interactions: [{
-        remarks: remarks || 'Closed ',
-        followUpDate: null
-        
+        remarks: remarks || 'Closed',
+        followUpDate: null,
+        attachments: uploadedFiles
       }]
     }
+
     onDone(client)
   }
 
-return (
-  <div className='card'>
-    <div className='form-row'>
-      <label>Name</label>
-      <input
-        type='text'
-        className='input'
-        value={name}
-        onChange={e => setName(e.target.value)}
-        required
-      />
+  return (
+    <div className='card'>
+      <div className='form-row'>
+        <label>Name</label>
+        <input
+          type='text'
+          className='input'
+          value={name}
+          onChange={e => setName(e.target.value)}
+          required
+        />
+      </div>
+
+      <div className='form-row'>
+        <label>Phone</label>
+        <input
+          type='tel'
+          pattern='[0-9]{7,15}'
+          className='input'
+          value={phone}
+          onChange={e => setPhone(e.target.value)}
+          required
+        />
+      </div>
+
+      <div className='form-row'>
+        <label>Email</label>
+        <input
+          type='email'
+          className='input'
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+        />
+      </div>
+
+      <div className='form-row'>
+        <label>Company (optional)</label>
+        <input
+          type='text'
+          className='input'
+          value={company}
+          onChange={e => setCompany(e.target.value)}
+        />
+      </div>
+
+      <div className='form-row'>
+        <label>Follow-up Date</label>
+        <input
+          type='date'
+          className='input'
+          value={followUpDate}
+          onChange={e => setFollowUpDate(e.target.value)}
+          required
+        />
+      </div>
+
+      <div className='form-row'>
+        <label>Remarks</label>
+        <textarea
+          className='input'
+          rows={3}
+          value={remarks}
+          onChange={e => setRemarks(e.target.value)}
+          placeholder="Enter detailed remarks"
+        />
+      </div>
+
+      <div className='form-row'>
+        <label>Attachments</label>
+        <input
+          type='file'
+          multiple
+          className='input'
+          onChange={handleFileChange}
+        />
+        {attachments.length > 0 && (
+          <ul style={{ fontSize: '0.9em', color: '#555' }}>
+            {attachments.map((file, i) => <li key={i}>{file.name}</li>)}
+          </ul>
+        )}
+      </div>
+
+      <div style={{ marginTop: 8 }}>
+        <button className='btn' onClick={handleSave}>Save</button>
+        <button style={{ marginLeft: 8 }} className='back-btn' onClick={handleDone}>Mark as Done</button>
+      </div>
     </div>
-
-    <div className='form-row'>
-      <label>Phone</label>
-      <input
-        type='tel'
-        pattern='[0-9]{7,15}' // allows 7–15 digits
-        className='input'
-        value={phone}
-        onChange={e => setPhone(e.target.value)}
-        required
-      />
-    </div>
-
-    <div className='form-row'>
-      <label>Email</label>
-      <input
-        type='email'
-        className='input'
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        required
-      />
-    </div>
-
-    <div className='form-row'>
-      <label>Company (optional)</label>
-      <input
-        type='text'
-        className='input'
-        value={company}
-        onChange={e => setCompany(e.target.value)}
-      />
-    </div>
-
-  <div className='form-row'>
-  <label>Follow-up Date</label>
-  <input
-    type='date'
-    className='input'
-    value={followUpDate}
-    onChange={e => setFollowUpDate(e.target.value)}
-    required
-  />
-</div>
-
-    <div className='form-row'>
-      <label>Remarks</label>
-      <textarea
-        className='input'
-        rows={3}
-        value={remarks}
-        onChange={e => setRemarks(e.target.value)}
-        placeholder="Enter detailed remarks with text, numbers, commas, or special characters"
-      />
-    </div>
-
-    <div style={{ marginTop: 8 }}>
-      <button className='btn' onClick={handleSave}>Save</button>
-      <button style={{ marginLeft: 8 }} className='back-btn' onClick={handleDone}>Mark as Done</button>
-    </div>
-  </div>
-);
-
+  )
 }

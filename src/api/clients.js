@@ -1,6 +1,6 @@
 // src/api/clients.js
 
-const BASE_URL = "http://localhost:5001";
+const BASE_URL = import.meta.env.VITE_BASE_URL ;
 
 // Fetch all clients
 export async function fetchClients() {
@@ -29,6 +29,7 @@ export async function saveClient(client) {
       company: client.company,
       followUpDate: client.interactions?.[0]?.followUpDate || null,
       remarks: client.interactions?.[0]?.remarks || null,
+      attachments: client.interactions?.[0]?.attachments || [], // ✅ FIXED LINE
       status: client.status || "open"
     }),
   });
