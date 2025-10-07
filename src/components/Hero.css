@@ -81,6 +81,25 @@
     font-size: 1.2rem;
     opacity: 0.9;
   }
-  .hero-children{
-    margin-bottom: 100px;
-  }
+ /* 🎨 Style each individual block inside hero-children */
+
+
+/* Hover effect for interactivity */
+.hero-children .blocks .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* 🧱 Style for each card */
+.hero-children .blocks .card {
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  color: white;
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 350px;                       /* optional max width */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Segoe UI', sans-serif;
+}
