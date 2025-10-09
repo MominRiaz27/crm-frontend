@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+const BASE_URL = import.meta.env.VITE_BASE_URL ;
+
 
 export default function AddClientForm({ onSave, onDone }) {
   const [name, setName] = useState('')
@@ -20,7 +22,7 @@ export default function AddClientForm({ onSave, onDone }) {
     const formData = new FormData()
     attachments.forEach(file => formData.append('attachments', file))
     
-    const res = await fetch('http://localhost:5001/upload', {  // adjust backend URL if needed
+    const res = await fetch(`${BASE_URL}/upload`, {  // adjust backend URL if needed
       method: 'POST',
       body: formData
     })

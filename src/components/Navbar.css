@@ -19,9 +19,9 @@
     gap: 10px;
   }
   .nav-logo {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    border-radius: 0%;
   }
   .company-name {
     font-size: 1.2rem;

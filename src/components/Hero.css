@@ -103,3 +103,15 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   font-family: 'Segoe UI', sans-serif;
 }
+/* Headings and text inside card */
+.hero-children .blocks .card h3,
+.hero-children .blocks .card h4 {
+  margin-top: 0;
+  color: #ffffff;
+}
+
+.hero-children .blocks .card p {
+  color: #eaf8ff;
+  opacity: 0.9;
+  line-height: 1.5;
+}

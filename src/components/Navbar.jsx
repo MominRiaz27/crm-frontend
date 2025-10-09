@@ -1,5 +1,6 @@
-import React from 'react'
-import './Navbar.css'
+import React from 'react';
+import bg from '../images/foxlimg.png'; // ✅ add correct file extension
+import './Navbar.css';
 
 export default function Navbar() {
   return (
@@ -7,16 +8,16 @@ export default function Navbar() {
       {/* Left: Logo + Name */}
       <div className="nav-left">
         <img 
-          src="/logo192.png" 
+          src={bg} // ✅ no "url()"
           alt="Company Logo" 
           className="nav-logo" 
         />
-        <span className="company-name">CRM Reminder</span>
+        <span className="company-name">FOXLINT</span>
       </div>
 
       {/* Center: Email */}
       <div className="nav-center">
-        <a href="mailto:info@crmreminder.com">info@crmreminder.com</a>
+        <a href="mailto:info@crmreminder.com">www.foxlint.com</a>
       </div>
 
       {/* Right: Timings */}
@@ -24,5 +25,5 @@ export default function Navbar() {
         <span>Mon - Fri: 9 AM – 7 PM</span>
       </div>
     </header>
-  )
+  );
 }
