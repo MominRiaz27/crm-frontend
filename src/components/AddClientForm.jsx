@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'; // ✅ import navigation hook
+import './design.css';
+
+
 const BASE_URL = import.meta.env.VITE_BASE_URL ;
 
 
@@ -6,10 +10,14 @@ export default function AddClientForm({ onSave, onDone }) {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
+  const [address, setAddress] = useState('')
   const [company, setCompany] = useState('')
   const [followUpDate, setFollowUpDate] = useState('')
   const [remarks, setRemarks] = useState('')
   const [attachments, setAttachments] = useState([])
+
+  const nav = useNavigate(); // ✅ create navigation instance
+
 
   // handle file selection
   const handleFileChange = (e) => {
@@ -41,6 +49,7 @@ export default function AddClientForm({ onSave, onDone }) {
       name,
       phone,
       email,
+      address,
       company,
       status: 'open',
       interactions: [{
@@ -60,6 +69,7 @@ export default function AddClientForm({ onSave, onDone }) {
       name,
       phone,
       email,
+      address,
       company,
       status: 'closed',
       interactions: [{
@@ -74,6 +84,8 @@ export default function AddClientForm({ onSave, onDone }) {
 
   return (
     <div className='card'>
+      <button className='back-btn' onClick={() => nav(-1)}>← Back</button>
+
       <div className='form-row'>
         <label>Name</label>
         <input
@@ -104,6 +116,17 @@ export default function AddClientForm({ onSave, onDone }) {
           className='input'
           value={email}
           onChange={e => setEmail(e.target.value)}
+          required
+        />
+      </div>
+
+      <div className='form-row'>
+        <label>Address</label>
+        <input
+          type='address'
+          className='input'
+          value={address}
+          onChange={e => setAddress(e.target.value)}
           required
         />
       </div>

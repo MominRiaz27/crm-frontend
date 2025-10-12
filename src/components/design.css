@@ -1,0 +1,133 @@
+.back-btn {
+    background-color: #0b5cff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px; 
+    cursor: pointer;
+    font-weight: 500;
+    color: white;
+  }
+  
+  .back-btn:hover {
+    background-color: #0fa6fe;
+  }
+  
+
+  .blocksdiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+  }
+  
+  .blocks-card {
+    background-color: #01416a; /* dark professional blue-gray */
+    color: #fff; /* white text */
+    text-align: center;
+    font-family: 'Poppins', 'Segoe UI', sans-serif; /* modern, professional font */
+    padding: 30px 40px;
+    border-radius: 16px;
+    width: 250px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .blocks-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+  }
+  
+  .blocks-card h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .blocks-card .small {
+    font-size: 14px;
+    opacity: 0.8;
+    color: white;
+  }
+  
+
+  /* --- CLIENT PROFILE PAGE STYLING --- */
+.client-profile {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 25px 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    color: #222;
+  }
+  
+  .client-profile h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    border-bottom: 2px solid #0b5cff;
+    padding-bottom: 6px;
+    color: #0b5cff;
+  }
+  
+  .client-profile .detail-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  
+  .client-profile .detail-row strong {
+    color: #01416a;
+    margin-right: 6px;
+    min-width: 100px;
+  }
+  
+  .client-profile .card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-top: 15px;
+  }
+  
+  .client-profile .card h4 {
+    margin-bottom: 10px;
+    color: #0b5cff;
+    font-weight: 600;
+  }
+  
+  .client-profile .btn,
+  .client-profile .back-btn {
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+  
+  .client-profile .form-row {
+    margin-bottom: 14px;
+    width: 100%;
+  }
+  
+  .client-profile .form-row label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  
+  .client-profile .input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  
+  .client-profile .input:focus {
+    border-color: #0b5cff;
+    outline: none;
+  }
+  

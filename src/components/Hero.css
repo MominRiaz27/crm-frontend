@@ -1,6 +1,6 @@
 /* Hero Section */
 .hero {
-    height: 100vh;              /* Exactly full screen height */
+    height: 90vh;              /* Exactly full screen height */
     width: 100vw;               /* Full screen width */
     background: linear-gradient(135deg, #0077b6, #00b4d8);
     background-size: cover;     /* Fit background image properly */

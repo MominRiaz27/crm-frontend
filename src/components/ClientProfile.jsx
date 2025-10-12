@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import './design.css'
 
 export default function ClientProfile({ initialClient, onBack, onSave, onMarkDone }) {
   const BASE_URL = import.meta.env.VITE_BASE_URL
@@ -32,7 +33,6 @@ export default function ClientProfile({ initialClient, onBack, onSave, onMarkDon
 
     let updatedAttachments = client.attachments || []
 
-    // ✅ Upload new files if any
     if (newFiles.length > 0) {
       setUploading(true)
       const formData = new FormData()
@@ -73,7 +73,6 @@ export default function ClientProfile({ initialClient, onBack, onSave, onMarkDon
     }
   }
 
-  // ✅ Remove existing attachment
   function handleRemoveAttachment(index) {
     let attachments = []
     try {
@@ -87,7 +86,6 @@ export default function ClientProfile({ initialClient, onBack, onSave, onMarkDon
     setClient({ ...client, attachments: updated })
   }
 
-  // ✅ Editable attachments list
   function renderAttachmentsEditable() {
     if (!client.attachments) return null
 
@@ -103,8 +101,8 @@ export default function ClientProfile({ initialClient, onBack, onSave, onMarkDon
     if (!attachments.length) return null
 
     return (
-      <div style={{ marginTop: 12 }} className="card">
-        <h4 style={{ marginTop: 0 }}>Existing Attachments</h4>
+      <div className="card">
+        <h4>Existing Attachments</h4>
         <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
           {attachments.map((url, idx) => (
             <li key={idx} style={{ marginBottom: 6 }}>
@@ -130,10 +128,9 @@ export default function ClientProfile({ initialClient, onBack, onSave, onMarkDon
     )
   }
 
-  // ✅ File input for new uploads
   function renderNewFileUpload() {
     return (
-      <div className="form-row" style={{ marginTop: 12 }}>
+      <div className="form-row">
         <label>Add New Attachments</label>
         <input
           type="file"
@@ -149,7 +146,6 @@ export default function ClientProfile({ initialClient, onBack, onSave, onMarkDon
     )
   }
 
-  // ✅ View-only attachments
   function renderAttachments() {
     if (!client.attachments) return null
 
@@ -165,8 +161,8 @@ export default function ClientProfile({ initialClient, onBack, onSave, onMarkDon
     if (!attachments.length) return null
 
     return (
-      <div style={{ marginTop: 12 }} className="card">
-        <h4 style={{ marginTop: 0 }}>Attachments</h4>
+      <div className="card">
+        <h4>Attachments</h4>
         <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
           {attachments.map((url, idx) => (
             <li key={idx} style={{ marginBottom: 6 }}>
@@ -186,81 +182,84 @@ export default function ClientProfile({ initialClient, onBack, onSave, onMarkDon
   }
 
   return (
-    <div>
-      <button className="back-btn" onClick={onBack}>Back</button>
+    <div className="client-profile">
+      <button className="back-btn" onClick={onBack}>← Back</button>
+      <h2>{client?.name || 'No name'}</h2>
 
-      <div style={{ marginTop: 12 }} className="card">
-        <h2 style={{ marginTop: 0 }}>{client?.name || 'No name'}</h2>
-
-        {editMode ? (
-          <div>
-            {/* Editable fields */}
-            <div className="form-row">
-              <label>Name</label>
-              <input className="input" value={client.name || ''} onChange={e => setClient({ ...client, name: e.target.value })} />
-            </div>
-
-            <div className="form-row">
-              <label>Email</label>
-              <input className="input" type="email" value={client.email || ''} onChange={e => setClient({ ...client, email: e.target.value })} />
-            </div>
-
-            <div className="form-row">
-              <label>Phone</label>
-              <input className="input" value={client.phone || ''} onChange={e => setClient({ ...client, phone: e.target.value })} />
-            </div>
-
-            <div className="form-row">
-              <label>Company</label>
-              <input className="input" value={client.company || ''} onChange={e => setClient({ ...client, company: e.target.value })} />
-            </div>
-
-            <div className="form-row">
-              <label>Follow-up Date</label>
-              <input className="input" type="date" value={client.followUpDate || ''} onChange={e => setClient({ ...client, followUpDate: e.target.value })} />
-            </div>
-
-            <div className="form-row">
-              <label>Remarks</label>
-              <textarea className="input" rows={4} value={client.remarks || ''} onChange={e => setClient({ ...client, remarks: e.target.value })} />
-            </div>
-
-            {renderAttachmentsEditable()}
-            {renderNewFileUpload()}
-
-            <div style={{ marginTop: 8 }}>
-              <button className="btn" onClick={handleSave} disabled={uploading}>
-                {uploading ? 'Uploading...' : 'Save'}
-              </button>
-              <button style={{ marginLeft: 8 }} className="back-btn" onClick={cancelEdit}>Cancel</button>
-            </div>
+      {editMode ? (
+        <div>
+          {/* Editable fields */}
+          <div className="form-row">
+            <label>Name</label>
+            <input className="input" value={client.name || ''} onChange={e => setClient({ ...client, name: e.target.value })} />
           </div>
-        ) : (
-          <div>
-            <div><strong>Email:</strong> {client.email || '—'}</div>
-            <div><strong>Phone:</strong> {client.phone || '—'}</div>
-            <div><strong>Company:</strong> {client.company || '—'}</div>
-            <div><strong>Follow-up:</strong> {renderDate(client.followUpDate)}</div>
-            <div style={{ marginTop: 8 }}><strong>Status:</strong> {client.status || 'open'}</div>
 
-            {client.remarks && (
-              <div style={{ marginTop: 12 }} className="card">
-                <h4 style={{ marginTop: 0 }}>Remarks</h4>
-                <div style={{ whiteSpace: 'pre-wrap' }}>{client.remarks}</div>
-              </div>
+          <div className="form-row">
+            <label>Email</label>
+            <input className="input" type="email" value={client.email || ''} onChange={e => setClient({ ...client, email: e.target.value })} />
+          </div>
+
+          <div className="form-row">
+            <label>Phone</label>
+            <input className="input" value={client.phone || ''} onChange={e => setClient({ ...client, phone: e.target.value })} />
+          </div>
+
+          <div className="form-row">
+            <label>Address</label>
+            <input className="input" value={client.address || ''} onChange={e => setClient({ ...client, address: e.target.value })} />
+          </div>
+
+          <div className="form-row">
+            <label>Company</label>
+            <input className="input" value={client.company || ''} onChange={e => setClient({ ...client, company: e.target.value })} />
+          </div>
+
+          <div className="form-row">
+            <label>Follow-up Date</label>
+            <input className="input" type="date" value={client.followUpDate || ''} onChange={e => setClient({ ...client, followUpDate: e.target.value })} />
+          </div>
+
+          <div className="form-row">
+            <label>Remarks</label>
+            <textarea className="input" rows={4} value={client.remarks || ''} onChange={e => setClient({ ...client, remarks: e.target.value })} />
+          </div>
+
+          {renderAttachmentsEditable()}
+          {renderNewFileUpload()}
+
+          <div>
+            <button className="btn" onClick={handleSave} disabled={uploading}>
+              {uploading ? 'Uploading...' : 'Save'}
+            </button>
+            <button className="back-btn" onClick={cancelEdit}>Cancel</button>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="detail-row"><strong>Email:</strong> {client.email || '—'}</div>
+          <div className="detail-row"><strong>Phone:</strong> {client.phone || '—'}</div>
+          <div className="detail-row"><strong>Address:</strong> {client.address || '—'}</div>
+          <div className="detail-row"><strong>Company:</strong> {client.company || '—'}</div>
+          <div className="detail-row"><strong>Follow-up:</strong> {renderDate(client.followUpDate)}</div>
+          <div className="detail-row"><strong>Status:</strong> {client.status || 'open'}</div>
+
+          {client.remarks && (
+            <div className="card">
+              <h4>Remarks</h4>
+              <div style={{ whiteSpace: 'pre-wrap' }}>{client.remarks}</div>
+            </div>
+          )}
+
+          {renderAttachments()}
+
+          <div>
+            <button className="btn" onClick={enterEdit}>Edit</button>
+            {!(client.status === 'done' || client.status === 'closed') && (
+              <button className="btn" onClick={handleMarkDone}>Mark as Done</button>
             )}
-
-            {renderAttachments()}
-
-            <div style={{ marginTop: 12 }}>
-              <button className="btn" onClick={enterEdit}>Edit</button>
-              {!(client.status === 'done' || client.status === 'closed') && (
-                <button style={{ marginLeft: 8 }} className="btn" onClick={handleMarkDone}>Mark as Done</button>
-              )}
-            </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

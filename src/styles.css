@@ -20,4 +20,3 @@ body{font-family:Inter, system-ui, Arial; margin:0; background:var(--bg); color:
 .input, textarea, select{width:100%; padding:8px; border:1px solid #ddd; border-radius:6px;}
 .small{font-size:13px; color:var(--muted)}
 .topbar-links a{margin-left:10px}
-.back-btn{background:#eee; color:#222; padding:6px 10px; border-radius:6px; border:none; cursor:pointer}

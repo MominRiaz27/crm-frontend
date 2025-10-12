@@ -26,6 +26,7 @@ export async function saveClient(client) {
       name: client.name,
       phone: client.phone,
       email: client.email,
+      address: client.address,
       company: client.company,
       followUpDate: client.interactions?.[0]?.followUpDate || null,
       remarks: client.interactions?.[0]?.remarks || null,
